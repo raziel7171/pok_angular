@@ -1,0 +1,15 @@
+<h2>Create a pokémon type</h2>
+<div class="container">
+  <form (submit)="saveChanges()" [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Type's name*</mat-label>
+      <input formControlName="name" matInput />
+      <mat-error *ngIf="form.invalid">{{getFieldName()}} <span></span> </mat-error>
+    </mat-form-field>
+
+    <div>
+      <button mat-flat-button color="primary" [disabled]="form.invalid">Save Changes</button>
+      <a mat-mat-stroked-button routerLink="/types"> Cancel </a>
+    </div>
+  </form>
+</div>

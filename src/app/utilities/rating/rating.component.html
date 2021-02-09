@@ -1,0 +1,7 @@
+
+    
+<mat-icon *ngFor="let rateIndex of ratingArray; let index = index" (mouseenter)="hoverMouseRating(index)"
+(mouseleave)="leaveMouseRating()" (click)="rate(index)"
+[ngClass]="{checked: selectedRating > index}">
+    catching_pokemon
+</mat-icon>

@@ -1,0 +1,15 @@
+<app-rating (RatedEvent)="RateHandler($event)"></app-rating>
+<div class="container">
+<h2>Initial Pokémon</h2>
+
+<app-pokemon-list [pokemon]="InitialPokemon"></app-pokemon-list>
+<br>
+<h2>Pokémon Team</h2>
+<div class="row">
+    <h4 class="file col-4" >Load team with a .txt file</h4>
+    <input type="file" class="file" #fileLoader style="display: none;">
+    <button class="btn btn-primary  col-2" (click)="fileLoader.click()">Load file</button>
+</div>
+
+<app-pokemon-list [pokemon]="PokemonTeam"></app-pokemon-list>
+</div>

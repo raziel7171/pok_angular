@@ -1,0 +1,21 @@
+<app-generic-list [list]="pokemon">
+  <ng-container content>
+    <div class="pokemon-container">
+      <div
+        *ngFor="let poke of pokemon; let index = index"
+        class="single-pokemon-container"
+      >
+        <a>
+          <img [src]="poke.image" alt="poke.name" class="image">
+        </a>
+        <p>
+          <a>{{ poke.name }}</a>
+        </p>
+        <div>
+          <a mat-flat-button color="primary"> Edit </a>
+          <button mat-flat-button color="warn" type="button">Delete</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</app-generic-list>

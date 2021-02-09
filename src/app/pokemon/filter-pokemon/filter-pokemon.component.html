@@ -1,0 +1,21 @@
+<h2>Search Pokémon</h2>
+
+<form [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label> Name </mat-label>
+    <input formControlName="name" matInput />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label> Types </mat-label>
+    <mat-select formControlName="typesId">
+      <mat-option *ngFor="let type of types" [value]="type.id">{{
+        type.name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="container-cleaner">
+    <button mat-flat-button (click)="cleanSearch()" color="warn">Clean</button>
+  </div>
+</form>
+
+<app-pokemon-list [pokemon]="pokemon"> </app-pokemon-list>
