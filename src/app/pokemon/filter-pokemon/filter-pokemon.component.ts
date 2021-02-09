@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -7,7 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./filter-pokemon.component.scss'],
 })
 export class FilterPokemonComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private location: Location) {}
 
   form!: FormGroup;
   types = [
@@ -20,7 +21,7 @@ export class FilterPokemonComponent implements OnInit {
   pokemon = [
     {
       name: 'bulbasaur',
-      types: [0, 1],
+      types: [1, 0],
       image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png',
     },
     {
@@ -55,17 +56,36 @@ export class FilterPokemonComponent implements OnInit {
     });
   }
 
-  searchPokemon(values: any) {
+  searchPokemon(values: any) { 
+    console.log(values.typesId !== 0)   
+
+    if (values.typesId >= 0) {
+      this.pokemon = this.pokemon.filter(
+        (pokemon) => pokemon.types.indexOf(values.typesId) !== -1
+      );
+    }    
+
     if (values.name) {
       this.pokemon = this.pokemon.filter(
         (pokemon) => pokemon.name.indexOf(values.name) !== -1
       );
     }
-    if (values.types !== -1) {
-      this.pokemon = this.pokemon.filter(
-        (pokemon) => pokemon.types.indexOf(values.typesId) !== -1
-      );
+    
+  }
+
+  private paramsURLSearch() {
+    let queryStrings = [];
+    let valueForm = this.form.value;
+
+    if (valueForm.name) {
+      queryStrings.push(`name=${valueForm.name}`);
     }
+
+    if (valueForm.typesId != '0') {
+      queryStrings.push(`typesId=${valueForm.typesId}`);
+    }
+
+    this.location.replaceState('pokemon/search', queryStrings.join('&'));
   }
 
   cleanSearch() {
