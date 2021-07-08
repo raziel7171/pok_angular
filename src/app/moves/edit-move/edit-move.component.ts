@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { moveCreationDTO } from '../move';
 
 @Component({
   selector: 'app-edit-move',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditMoveComponent implements OnInit {
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute) { }
+
+  modelMove: moveCreationDTO = {name: 'Ice beam', typeId: 2, categoryId: 1, power: 100, accuracy: 95}
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe(params=>{
+      //console.log(params.id)
+    })
+  }
+
+  saveChanges(move: moveCreationDTO){
+    console.log(move);
   }
 
 }

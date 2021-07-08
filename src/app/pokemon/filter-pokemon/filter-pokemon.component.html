@@ -7,7 +7,7 @@
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label> Types </mat-label>
-    <mat-select formControlName="typesId">
+    <mat-select formControlName="typeId">
       <mat-option *ngFor="let type of types" [value]="type.id">{{
         type.name
       }}</mat-option>

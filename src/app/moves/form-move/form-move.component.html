@@ -1,0 +1,69 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+  <mat-form-field appearance="outline" hintLabel="Max 30 characters">
+    <mat-label> Name* </mat-label>
+    <input formControlName="name" matInput #input maxlength="30" />
+    <mat-hint align="end">{{ input.value?.length || 0 }}/30</mat-hint>
+    <mat-error> A name is required for a move </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label> Type </mat-label>
+    <mat-select formControlName="typeId">
+      <mat-option *ngFor="let type of types" [value]="type.id">{{
+        type.name
+      }}</mat-option>
+    </mat-select>
+    <mat-error> Please select a type</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label> Category </mat-label>
+    <mat-select formControlName="categoryId">
+      <mat-option
+        class="icon"
+        *ngFor="let category of categories"
+        [value]="category.id"
+      >
+        {{ category.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error> please select a category </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Power</mat-label>
+    <input
+      matInput
+      type="number"
+      value="0"
+      formControlName="power"
+      min="0"
+      max="255"
+    />
+    <span matSuffix>Pow</span>
+    <mat-error>Power must be between 0 and 255</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Accuracy</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="accuracy"
+      min="0"
+      max="100"
+      value="100"
+    />
+    <span matSuffix>%</span>
+    <mat-error>Accuracy must be between 0% and 100%</mat-error>
+  </mat-form-field>
+  <app-input-img></app-input-img>
+
+  <div>
+    <button mat-flat-button color="primary" [disabled]="form.invalid">
+      Save changes
+    </button>
+
+    <a mat-stroked-button routerLink="/moves"> Cancel</a>
+  </div>
+</form>

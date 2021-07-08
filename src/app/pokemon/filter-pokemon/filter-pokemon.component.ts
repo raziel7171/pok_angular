@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-filter-pokemon',
@@ -8,7 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./filter-pokemon.component.scss'],
 })
 export class FilterPokemonComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder, private location: Location) {}
+  constructor(private formBuilder: FormBuilder, private location: Location, private activatedRoute: ActivatedRoute) {}
 
   form!: FormGroup;
   types = [
@@ -45,23 +46,25 @@ export class FilterPokemonComponent implements OnInit {
 
   originalForm = {
     name: '',
-    typesId: [Number],
+    typeId: [Number],
   };
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(this.originalForm);
+    this.ReadParamsURLSearch();
+    this.searchPokemon(this.form.value);
     this.form.valueChanges.subscribe((values) => {
       this.pokemon = this.originalPokemon;
       this.searchPokemon(values);
+      this.WriteParamsURLSearch();           
     });
   }
 
   searchPokemon(values: any) { 
-    console.log(values.typesId !== 0)   
 
-    if (values.typesId >= 0) {
+    if (values.typeId >= 0) {
       this.pokemon = this.pokemon.filter(
-        (pokemon) => pokemon.types.indexOf(values.typesId) !== -1
+        (pokemon) => pokemon.types.indexOf(values.typeId) !== -1
       );
     }    
 
@@ -73,7 +76,22 @@ export class FilterPokemonComponent implements OnInit {
     
   }
 
-  private paramsURLSearch() {
+  private ReadParamsURLSearch (){
+    this.activatedRoute.queryParams.subscribe((params) => {
+      let search: any = {};
+      if (params.name){
+        search.name = params.name;
+      }
+      if(params.typeId){
+        search.typeId = Number(params.typeId);
+      }
+      this.form.patchValue(search);
+      
+    })
+    
+  }
+
+  private WriteParamsURLSearch() {
     let queryStrings = [];
     let valueForm = this.form.value;
 
@@ -81,8 +99,9 @@ export class FilterPokemonComponent implements OnInit {
       queryStrings.push(`name=${valueForm.name}`);
     }
 
-    if (valueForm.typesId != '0') {
-      queryStrings.push(`typesId=${valueForm.typesId}`);
+    if (valueForm.typeId >= 0) {
+      console.log(valueForm.typeId + " asd")
+      queryStrings.push(`typeId=${valueForm.typeId}`);
     }
 
     this.location.replaceState('pokemon/search', queryStrings.join('&'));

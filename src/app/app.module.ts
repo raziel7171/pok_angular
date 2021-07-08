@@ -23,7 +23,9 @@ import { EditPokemonComponent } from './pokemon/edit-pokemon/edit-pokemon.compon
 import { EditTypeComponent } from './types/edit-type/edit-type.component';
 import { EditMoveComponent } from './moves/edit-move/edit-move.component';
 import { FormTypeComponent } from './types/form-type/form-type.component';
-import { FilterPokemonComponent } from './pokemon/filter-pokemon/filter-pokemon.component'; 
+import { FilterPokemonComponent } from './pokemon/filter-pokemon/filter-pokemon.component';
+import { FormMoveComponent } from './moves/form-move/form-move.component';
+import { InputImgComponent } from './utilities/input-img/input-img.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,9 @@ import { FilterPokemonComponent } from './pokemon/filter-pokemon/filter-pokemon.
     EditTypeComponent,
     EditMoveComponent,
     FormTypeComponent,
-    FilterPokemonComponent,    
+    FilterPokemonComponent,
+    FormMoveComponent,
+    InputImgComponent,    
   ],
   imports: [
     BrowserModule,
